@@ -1,5 +1,8 @@
 package Kernel;
 
+/**
+ * Clase Bitacora que registra acciones realizadas sobre un incidente.
+ */
 public class Bitacora {
 
     // Atributos
