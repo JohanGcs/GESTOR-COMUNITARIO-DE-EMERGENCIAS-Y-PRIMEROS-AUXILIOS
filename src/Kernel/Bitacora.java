@@ -33,3 +33,9 @@ public class Bitacora {
     public String getFecha() {
         return fecha;
     }
+
+    public String resumen() {
+        // Formato corto para listar bitacoras.
+        return "(" + id + ") " + accion + " - " + detalle + " | " + fecha;
+    }
+}
