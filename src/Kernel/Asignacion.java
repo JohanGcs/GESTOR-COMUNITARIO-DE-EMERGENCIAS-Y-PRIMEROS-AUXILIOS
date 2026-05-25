@@ -1,4 +1,4 @@
-package modelo;
+package Kernel;
 
 import java.time.LocalDateTime; //A la fecha del incidente
 
@@ -39,10 +39,6 @@ public class Asignacion {
      * 
      * REGLA: cambia estado se marca como NO disponible
      */
-    public void aceptar() {
-        estado = "aceptada";
-        brigadista.setDisponible(false);
-    }
 
     /**
      * El brigadista rechaza la asignación

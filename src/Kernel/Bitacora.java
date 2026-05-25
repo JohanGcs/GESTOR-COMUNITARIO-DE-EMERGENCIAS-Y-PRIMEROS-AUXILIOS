@@ -1,57 +1,30 @@
-package modelo;
-
-import java.time.LocalDateTime; //Incidentes pasan en tiempo real
+package Kernel;
 
 /**
- * CLASE: Bitacora
- * 
- * Representa el HISTORIAL del incidente.
- * 
- *  Cada acción importante se guarda aquí:
- * - asignaciones
- * - inicio de atención
- * - cierre
- * 
- * Lo que nos da:
- *  Auditoría
- *  Seguimiento
- *  Transparencia del sistema
+ * Clase Bitacora que registra acciones realizadas sobre un incidente.
  */
 public class Bitacora {
 
+    // Atributos
+    private int id;
+    private String accion;
+    private String detalle;
+    private String fecha;
 
-    // ATRIBUTOS
-   
-
-    private String accion;     // qué pasó (Asignación, Inicio, Cierre)
-    private String detalle;    // descripción más específica
-    private LocalDateTime fecha; // cuándo ocurrió
-
-
-    // CONSTRUCTOR
- 
-
-    public Bitacora(String accion, String detalle) {
+    // Constructor
+    public Bitacora(int id, String accion, String detalle, String fecha) {
+        // Datos del registro.
+        this.id = id;
         this.accion = accion;
         this.detalle = detalle;
-        this.fecha = LocalDateTime.now();
+        this.fecha = fecha;
     }
 
-
-  
-    // COMPORTAMIENTO
- 
-
-    /**
-     * Muestra el registro
-   */
-    
-    public void mostrar() {
-        System.out.println(fecha + " | " + accion + " | " + detalle);
+    // Getters
+    public int getId() {
+        return id;
     }
 
-
-    // GETTERS 
     public String getAccion() {
         return accion;
     }
@@ -60,7 +33,12 @@ public class Bitacora {
         return detalle;
     }
 
-    public LocalDateTime getFecha() {
+    public String getFecha() {
         return fecha;
+    }
+
+    public String resumen() {
+        // Formato corto para listar bitacoras.
+        return "(" + id + ") " + accion + " - " + detalle + " | " + fecha;
     }
 }

@@ -1,4 +1,4 @@
-package modelo;
+package Kernel;
 
 /**
  * Representa recursos de emergencia

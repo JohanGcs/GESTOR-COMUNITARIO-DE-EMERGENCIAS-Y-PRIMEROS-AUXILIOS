@@ -1,4 +1,4 @@
-package modelo;
+package Kernel;
 
 import java.time.LocalDateTime; //Ajuste en tiempo real
 
