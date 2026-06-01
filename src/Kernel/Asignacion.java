@@ -17,36 +17,37 @@ public class Asignacion {
     private Brigadista brigadista;  // quién atiende
     private String estado;          // estado de la asignación
     private LocalDateTime fecha;    // cuándo se hizo
-
+    private int idIncidente;
 
   
     // CONSTRUCTOR
  
 
     public Asignacion(Brigadista brigadista) {
+        this(brigadista, -1);
+    }
+
+    public Asignacion(Brigadista brigadista, int idIncidente) {
         this.brigadista = brigadista;
         this.estado = "pendiente"; // estado inicial
         this.fecha = LocalDateTime.now();
+        this.idIncidente = idIncidente;
     }
 
+    public Asignacion(Brigadista brigadista, int idIncidente, String estado, LocalDateTime fecha) {
+        this.brigadista = brigadista;
+        this.estado = estado;
+        this.fecha = fecha;
+        this.idIncidente = idIncidente;
+    }
 
+    public void aceptar() {
+        estado = "aceptada";
+        if (brigadista != null) {
+            brigadista.cambiarDisponibilidad(false);
+        }
+    }
 
-    // COMPORTAMIENTO
-
-
-    /**
-     * El brigadista acepta la asignación
-     * 
-     * REGLA: cambia estado se marca como NO disponible
-     */
-
-    /**
-     * El brigadista rechaza la asignación
-     * 
-     * REGLA:
-     * - solo cambia estado
-     * - sigue disponible
-     */
     public void rechazar() {
         estado = "rechazada";
     }
@@ -66,5 +67,9 @@ public class Asignacion {
 
     public LocalDateTime getFecha() {
         return fecha;
+    }
+
+    public int getIdIncidente() {
+        return idIncidente;
     }
 }
