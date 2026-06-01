@@ -1,9 +1,7 @@
 package Kernel;
 
-
-import POOLabFinal.VentanaPrincipal;
-
-import java.awt.*;
+import GUI.LoginFrame;
+import java.awt.EventQueue;
 
 /**
  * Clase principal que inicia la interfaz grafica del sistema.
@@ -16,7 +14,7 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                VentanaPrincipal ventana = new VentanaPrincipal();
+                LoginFrame ventana = new LoginFrame();
                 ventana.setVisible(true);
             }
         });
