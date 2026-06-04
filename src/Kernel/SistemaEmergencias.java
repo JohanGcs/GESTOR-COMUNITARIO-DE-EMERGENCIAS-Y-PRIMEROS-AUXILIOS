@@ -237,6 +237,15 @@ public class SistemaEmergencias {
         throw new NoEncontradoException("No se encontro guia para el tipo: " + tipo);
     }
 
+    /** Devuelve los tipos de emergencia que tienen guia disponible. */
+    public String[] getTiposConGuia() {
+        String[] tipos = new String[cantidadGuias];
+        for (int i = 0; i < cantidadGuias; i++) {
+            tipos[i] = guias[i].getTipoEmergencia();
+        }
+        return tipos;
+    }
+
     public Incidente obtenerIncidentePorId(int idIncidente) throws NoEncontradoException {
         return buscarIncidentePorId(idIncidente);
     }

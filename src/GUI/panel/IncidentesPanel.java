@@ -70,6 +70,13 @@ public class IncidentesPanel extends JPanel {
         this.txtDescripcion = new JTextField();
         this.txtBrigadistaId = new JTextField();
 
+        ValidationUI.configureField(txtTipo);
+        ValidationUI.configureField(txtSeveridad);
+        ValidationUI.configureField(txtPrioridad);
+        ValidationUI.configureField(txtUbicacion);
+        ValidationUI.configureField(txtDescripcion);
+        ValidationUI.configureField(txtBrigadistaId);
+
         ValidationUI.attachAutoClear(txtTipo);
         ValidationUI.attachAutoClear(txtSeveridad);
         ValidationUI.attachAutoClear(txtPrioridad);
