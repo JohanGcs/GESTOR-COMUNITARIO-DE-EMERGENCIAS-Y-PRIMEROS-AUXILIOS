@@ -7,12 +7,15 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JRootPane;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -20,7 +23,22 @@ public final class ValidationUI {
 
     private static final Map<JComponent, Border> ORIGINAL_BORDERS = new WeakHashMap<>();
 
+    /** Tamaño estándar para todos los campos de texto del sistema. */
+    private static final Dimension FIELD_SIZE = new Dimension(260, 30);
+    private static final Font FIELD_FONT = new Font("SansSerif", Font.PLAIN, 14);
+
     private ValidationUI() {
+    }
+
+    /**
+     * Aplica el tamaño y fuente estándar a un campo de texto.
+     * Usar en todos los paneles para garantizar consistencia visual.
+     */
+    public static void configureField(JTextField field) {
+        if (field == null) return;
+        field.setPreferredSize(FIELD_SIZE);
+        field.setMinimumSize(FIELD_SIZE);
+        field.setFont(FIELD_FONT);
     }
 
     public static void showFieldError(Component parent, JComponent field, String message) {

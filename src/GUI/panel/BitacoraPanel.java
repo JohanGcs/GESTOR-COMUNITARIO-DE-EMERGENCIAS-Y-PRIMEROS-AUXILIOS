@@ -81,6 +81,10 @@ public class BitacoraPanel extends JPanel {
         txtAccion = new JTextField();
         txtDetalle = new JTextField();
 
+        ValidationUI.configureField(txtIncidenteId);
+        ValidationUI.configureField(txtAccion);
+        ValidationUI.configureField(txtDetalle);
+
         ValidationUI.attachAutoClear(txtIncidenteId);
         ValidationUI.attachAutoClear(txtAccion);
         ValidationUI.attachAutoClear(txtDetalle);

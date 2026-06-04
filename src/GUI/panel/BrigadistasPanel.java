@@ -46,6 +46,11 @@ public class BrigadistasPanel extends JPanel {
         txtCorreo = new JTextField();
         txtTelefono = new JTextField();
 
+        ValidationUI.configureField(txtId);
+        ValidationUI.configureField(txtNombre);
+        ValidationUI.configureField(txtCorreo);
+        ValidationUI.configureField(txtTelefono);
+
         ValidationUI.attachAutoClear(txtId);
         ValidationUI.attachAutoClear(txtNombre);
         ValidationUI.attachAutoClear(txtCorreo);

@@ -41,15 +41,14 @@ public class LoginFrame extends JFrame {
     private final JComboBox<String> cmbRol;
 
     private static final Dimension FIELD_SIZE = new Dimension(320, 30);
-    private static final Font TITLE_FONT = new Font("SansSerif", Font.BOLD, 22);
-    private static final Font LABEL_FONT = new Font("SansSerif", Font.PLAIN, 14);
+    private static final Font TITLE_FONT  = new Font("SansSerif", Font.BOLD, 22);
+    private static final Font LABEL_FONT  = new Font("SansSerif", Font.PLAIN, 14);
     private static final Font BUTTON_FONT = new Font("SansSerif", Font.PLAIN, 14);
     private static final Font SUBTITLE_FONT = new Font("SansSerif", Font.PLAIN, 16);
-    private static final int LOGO_HEIGHT = 180;
+    private static final int LOGO_HEIGHT   = 180;
     private static final int AVATAR_HEIGHT = 200;
 
     private JLabel avatarLabel;
-    private JPanel logoUdWrapper;
 
     public LoginFrame() {
         this.sistema = new SistemaEmergencias();
@@ -57,26 +56,23 @@ public class LoginFrame extends JFrame {
         setTitle("Ingreso - Gestor Comunitario");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        layout = new CardLayout();
+        layout     = new CardLayout();
         contenedor = new JPanel(layout);
 
-        JPanel panelLogin = new JPanel(new BorderLayout());
-
+        // ── Panel LOGIN ───────────────────────────────────────────────────────
         JPanel formLogin = new JPanel(new GridBagLayout());
         formLogin.setBorder(new EmptyBorder(16, 16, 16, 16));
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(8, 8, 8, 8);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets  = new Insets(8, 8, 8, 8);
+        gbc.fill    = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
 
         JLabel tituloLogin = new JLabel("Iniciar sesion", SwingConstants.CENTER);
         tituloLogin.setFont(SUBTITLE_FONT);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
+        gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
         formLogin.add(tituloLogin, gbc);
 
-        txtLoginCorreo = new JTextField();
+        txtLoginCorreo   = new JTextField();
         txtLoginPassword = new JPasswordField();
         configureField(txtLoginCorreo);
         configureField(txtLoginPassword);
@@ -84,61 +80,54 @@ public class LoginFrame extends JFrame {
         ValidationUI.attachAutoClear(txtLoginPassword);
 
         gbc.gridwidth = 1;
-        gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridx = 0; gbc.gridy = 1;
         JLabel lblCorreo = new JLabel("Correo:");
         lblCorreo.setFont(LABEL_FONT);
         formLogin.add(lblCorreo, gbc);
         gbc.gridx = 1;
         formLogin.add(txtLoginCorreo, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridx = 0; gbc.gridy = 2;
         JLabel lblContrasena = new JLabel("Contrasena:");
         lblContrasena.setFont(LABEL_FONT);
         formLogin.add(lblContrasena, gbc);
         gbc.gridx = 1;
         formLogin.add(txtLoginPassword, gbc);
 
-        JButton btnIngresar = new JButton("Ingresar");
+        JButton btnIngresar  = new JButton("Ingresar");
         JButton btnIrRegistro = new JButton("Crear cuenta");
-        JButton btnSalir = new JButton("Salir");
+        JButton btnSalir     = new JButton("Salir");
 
         btnIngresar.setFont(BUTTON_FONT);
         btnIngresar.addActionListener(e -> iniciarSesion());
-
         btnIrRegistro.setFont(BUTTON_FONT);
-
         btnSalir.setFont(BUTTON_FONT);
         btnSalir.addActionListener(e -> salir());
 
         ValidationUI.setDefaultButton(getRootPane(), btnIngresar);
 
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.gridwidth = 2;
+        gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 2;
         formLogin.add(btnIngresar, gbc);
-        gbc.gridy = 4;
-        formLogin.add(btnIrRegistro, gbc);
-        gbc.gridy = 5;
-        formLogin.add(btnSalir, gbc);
+        gbc.gridy = 4; formLogin.add(btnIrRegistro, gbc);
+        gbc.gridy = 5; formLogin.add(btnSalir, gbc);
 
-        panelLogin.add(wrapCentered(formLogin), BorderLayout.CENTER);
+        // Login panel: logo izquierdo | formulario centrado | logo derecho
+        JPanel panelLogin = buildThreeColumnPanel(
+                buildLogoWrapper("/Images/BRIGADE_LOGO.jpg"),
+                wrapCentered(formLogin),
+                buildLogoWrapper("/Images/LogoUD.png")
+        );
 
-        JPanel panelRegistro = new JPanel(new BorderLayout());
-        JLabel tituloRegistro = new JLabel("Crear cuenta", SwingConstants.CENTER);
-        tituloRegistro.setFont(TITLE_FONT);
-        panelRegistro.add(tituloRegistro, BorderLayout.NORTH);
-
+        // ── Panel REGISTRO ────────────────────────────────────────────────────
         JPanel formRegistro = new JPanel(new GridBagLayout());
         formRegistro.setBorder(new EmptyBorder(16, 16, 16, 16));
         GridBagConstraints gbcReg = new GridBagConstraints();
-        gbcReg.insets = new Insets(8, 8, 8, 8);
-        gbcReg.fill = GridBagConstraints.HORIZONTAL;
+        gbcReg.insets  = new Insets(8, 8, 8, 8);
+        gbcReg.fill    = GridBagConstraints.HORIZONTAL;
         gbcReg.weightx = 1.0;
 
-        txtRegNombre = new JTextField();
-        txtRegCorreo = new JTextField();
+        txtRegNombre   = new JTextField();
+        txtRegCorreo   = new JTextField();
         txtRegTelefono = new JTextField();
         txtRegPassword = new JPasswordField();
         configureField(txtRegNombre);
@@ -149,6 +138,7 @@ public class LoginFrame extends JFrame {
         ValidationUI.attachAutoClear(txtRegCorreo);
         ValidationUI.attachAutoClear(txtRegTelefono);
         ValidationUI.attachAutoClear(txtRegPassword);
+
         cmbRol = new JComboBox<>(new String[]{
                 Usuario.ROL_RESIDENTE,
                 Usuario.ROL_BRIGADISTA,
@@ -158,48 +148,38 @@ public class LoginFrame extends JFrame {
         ValidationUI.attachAutoClear(cmbRol);
         cmbRol.addActionListener(e -> updateAvatarForRole((String) cmbRol.getSelectedItem()));
 
-        gbcReg.gridx = 0;
-        gbcReg.gridy = 0;
+        gbcReg.gridx = 0; gbcReg.gridy = 0;
         JLabel lblNombre = new JLabel("Nombre:");
         lblNombre.setFont(LABEL_FONT);
         formRegistro.add(lblNombre, gbcReg);
-        gbcReg.gridx = 1;
-        formRegistro.add(txtRegNombre, gbcReg);
+        gbcReg.gridx = 1; formRegistro.add(txtRegNombre, gbcReg);
 
-        gbcReg.gridx = 0;
-        gbcReg.gridy = 1;
+        gbcReg.gridx = 0; gbcReg.gridy = 1;
         JLabel lblRegCorreo = new JLabel("Correo:");
         lblRegCorreo.setFont(LABEL_FONT);
         formRegistro.add(lblRegCorreo, gbcReg);
-        gbcReg.gridx = 1;
-        formRegistro.add(txtRegCorreo, gbcReg);
+        gbcReg.gridx = 1; formRegistro.add(txtRegCorreo, gbcReg);
 
-        gbcReg.gridx = 0;
-        gbcReg.gridy = 2;
+        gbcReg.gridx = 0; gbcReg.gridy = 2;
         JLabel lblTelefono = new JLabel("Telefono:");
         lblTelefono.setFont(LABEL_FONT);
         formRegistro.add(lblTelefono, gbcReg);
-        gbcReg.gridx = 1;
-        formRegistro.add(txtRegTelefono, gbcReg);
+        gbcReg.gridx = 1; formRegistro.add(txtRegTelefono, gbcReg);
 
-        gbcReg.gridx = 0;
-        gbcReg.gridy = 3;
+        gbcReg.gridx = 0; gbcReg.gridy = 3;
         JLabel lblRegContrasena = new JLabel("Contrasena:");
         lblRegContrasena.setFont(LABEL_FONT);
         formRegistro.add(lblRegContrasena, gbcReg);
-        gbcReg.gridx = 1;
-        formRegistro.add(txtRegPassword, gbcReg);
+        gbcReg.gridx = 1; formRegistro.add(txtRegPassword, gbcReg);
 
-        gbcReg.gridx = 0;
-        gbcReg.gridy = 4;
+        gbcReg.gridx = 0; gbcReg.gridy = 4;
         JLabel lblRol = new JLabel("Rol:");
         lblRol.setFont(LABEL_FONT);
         formRegistro.add(lblRol, gbcReg);
-        gbcReg.gridx = 1;
-        formRegistro.add(cmbRol, gbcReg);
+        gbcReg.gridx = 1; formRegistro.add(cmbRol, gbcReg);
 
         JButton btnRegistrar = new JButton("Registrar");
-        JButton btnVolver = new JButton("Volver a login");
+        JButton btnVolver    = new JButton("Volver a login");
 
         btnRegistrar.setFont(BUTTON_FONT);
         btnRegistrar.addActionListener(e -> registrarCuenta());
@@ -207,93 +187,146 @@ public class LoginFrame extends JFrame {
         btnVolver.setFont(BUTTON_FONT);
         btnVolver.addActionListener(e -> {
             layout.show(contenedor, "login");
-            setLogoUdVisible(true);
             ValidationUI.setDefaultButton(getRootPane(), btnIngresar);
         });
 
         btnIrRegistro.addActionListener(e -> {
             layout.show(contenedor, "registro");
-            setLogoUdVisible(false);
             ValidationUI.setDefaultButton(getRootPane(), btnRegistrar);
         });
 
-        gbcReg.gridx = 0;
-        gbcReg.gridy = 5;
-        gbcReg.gridwidth = 2;
+        gbcReg.gridx = 0; gbcReg.gridy = 5; gbcReg.gridwidth = 2;
         formRegistro.add(btnRegistrar, gbcReg);
-        gbcReg.gridy = 6;
-        formRegistro.add(btnVolver, gbcReg);
+        gbcReg.gridy = 6; formRegistro.add(btnVolver, gbcReg);
 
-        JPanel registroCenter = new JPanel(new BorderLayout());
-        registroCenter.add(formRegistro, BorderLayout.CENTER);
-        registroCenter.add(buildAvatarWrapper(), BorderLayout.EAST);
-        panelRegistro.add(wrapCentered(registroCenter), BorderLayout.CENTER);
+        // El título "Crear cuenta" va como primera fila dentro del propio formRegistro
+        // para que quede justo arriba de los campos
+        JLabel tituloRegistro = new JLabel("Crear cuenta", SwingConstants.CENTER);
+        tituloRegistro.setFont(TITLE_FONT);
 
-        contenedor.add(panelLogin, "login");
+        // Insertar el título al inicio: corremos todas las filas +1 y ponemos título en fila 0
+        // Re-construimos el form con el título incluido
+        JPanel formRegistroConTitulo = new JPanel(new GridBagLayout());
+        formRegistroConTitulo.setBorder(new EmptyBorder(16, 16, 16, 16));
+        GridBagConstraints gt = new GridBagConstraints();
+        gt.insets  = new Insets(8, 8, 8, 8);
+        gt.fill    = GridBagConstraints.HORIZONTAL;
+        gt.weightx = 1.0;
+
+        gt.gridx = 0; gt.gridy = 0; gt.gridwidth = 2;
+        formRegistroConTitulo.add(tituloRegistro, gt);
+
+        gt.gridwidth = 1;
+        gt.gridx = 0; gt.gridy = 1;
+        JLabel lbN2 = new JLabel("Nombre:"); lbN2.setFont(LABEL_FONT);
+        formRegistroConTitulo.add(lbN2, gt);
+        gt.gridx = 1; formRegistroConTitulo.add(txtRegNombre, gt);
+
+        gt.gridx = 0; gt.gridy = 2;
+        JLabel lbC2 = new JLabel("Correo:"); lbC2.setFont(LABEL_FONT);
+        formRegistroConTitulo.add(lbC2, gt);
+        gt.gridx = 1; formRegistroConTitulo.add(txtRegCorreo, gt);
+
+        gt.gridx = 0; gt.gridy = 3;
+        JLabel lbT2 = new JLabel("Telefono:"); lbT2.setFont(LABEL_FONT);
+        formRegistroConTitulo.add(lbT2, gt);
+        gt.gridx = 1; formRegistroConTitulo.add(txtRegTelefono, gt);
+
+        gt.gridx = 0; gt.gridy = 4;
+        JLabel lbP2 = new JLabel("Contrasena:"); lbP2.setFont(LABEL_FONT);
+        formRegistroConTitulo.add(lbP2, gt);
+        gt.gridx = 1; formRegistroConTitulo.add(txtRegPassword, gt);
+
+        gt.gridx = 0; gt.gridy = 5;
+        JLabel lbR2 = new JLabel("Rol:"); lbR2.setFont(LABEL_FONT);
+        formRegistroConTitulo.add(lbR2, gt);
+        gt.gridx = 1; formRegistroConTitulo.add(cmbRol, gt);
+
+        gt.gridx = 0; gt.gridy = 6; gt.gridwidth = 2;
+        formRegistroConTitulo.add(btnRegistrar, gt);
+        gt.gridy = 7; formRegistroConTitulo.add(btnVolver, gt);
+
+        // Registro panel: logo Brigade izquierdo | formulario centrado | avatar derecho
+        JPanel panelRegistro = buildThreeColumnPanel(
+                buildLogoWrapper("/Images/BRIGADE_LOGO.jpg"),
+                wrapCentered(formRegistroConTitulo),
+                buildAvatarWrapper()
+        );
+
+        contenedor.add(panelLogin,   "login");
         contenedor.add(panelRegistro, "registro");
         layout.show(contenedor, "login");
 
+        // ── Root ──────────────────────────────────────────────────────────────
         JPanel root = new JPanel(new BorderLayout());
         root.setBorder(new EmptyBorder(24, 24, 24, 24));
 
-        JLabel title = new JLabel("GESTOR COMUNITARIO DE EMERGENCIAS Y PRIMEROS AUXILIOS", SwingConstants.CENTER);
+        JLabel title = new JLabel(
+                "GESTOR COMUNITARIO DE EMERGENCIAS Y PRIMEROS AUXILIOS",
+                SwingConstants.CENTER);
         title.setFont(TITLE_FONT);
         JPanel titleWrapper = new JPanel(new BorderLayout());
         titleWrapper.setBorder(new EmptyBorder(12, 12, 12, 12));
         titleWrapper.add(title, BorderLayout.CENTER);
         root.add(titleWrapper, BorderLayout.NORTH);
+        root.add(contenedor, BorderLayout.CENTER);
 
-        JPanel center = new JPanel(new GridBagLayout());
-        GridBagConstraints centerGbc = new GridBagConstraints();
-        centerGbc.insets = new Insets(0, 0, 0, 0);
-        centerGbc.gridy = 0;
-        centerGbc.fill = GridBagConstraints.BOTH;
-        centerGbc.weighty = 1.0;
-
-        centerGbc.gridx = 0;
-        centerGbc.weightx = 0.5;
-        center.add(buildLogoWrapper("/Images/BRIGADE_LOGO.jpg"), centerGbc);
-
-        centerGbc.gridx = 1;
-        centerGbc.weightx = 0.0;
-        center.add(contenedor, centerGbc);
-
-        centerGbc.gridx = 2;
-        centerGbc.weightx = 0.5;
-        logoUdWrapper = buildLogoWrapper("/Images/LogoUD.png");
-        center.add(logoUdWrapper, centerGbc);
-
-        root.add(center, BorderLayout.CENTER);
+        JLabel creditos = new JLabel("Hecho por: Garavito Johan Camilo y Velandia Jose Luis");
+        creditos.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        creditos.setForeground(new java.awt.Color(150, 150, 150));
+        creditos.setHorizontalAlignment(SwingConstants.RIGHT);
+        creditos.setBorder(new EmptyBorder(6, 0, 0, 4));
+        root.add(creditos, BorderLayout.SOUTH);
 
         setContentPane(root);
-
         pack();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
 
         updateAvatarForRole((String) cmbRol.getSelectedItem());
-        setLogoUdVisible(true);
+    }
+
+    // ── Helpers de layout ─────────────────────────────────────────────────────
+
+    /**
+     * Construye un panel de tres columnas simétricas:
+     * columna izquierda y derecha con weightx=0.5, columna central con weightx=0.0.
+     * Esto garantiza que la columna central siempre quede perfectamente centrada.
+     */
+    private JPanel buildThreeColumnPanel(JPanel left, JPanel center, JPanel right) {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridy   = 0;
+        c.fill    = GridBagConstraints.BOTH;
+        c.weighty = 1.0;
+
+        c.gridx   = 0;
+        c.weightx = 0.5;
+        panel.add(left, c);
+
+        c.gridx   = 1;
+        c.weightx = 0.0;
+        panel.add(center, c);
+
+        c.gridx   = 2;
+        c.weightx = 0.5;
+        panel.add(right, c);
+
+        return panel;
     }
 
     private JPanel buildLogoWrapper(String resourcePath) {
         JPanel wrapper = new JPanel(new GridBagLayout());
         wrapper.setBorder(new EmptyBorder(8, 24, 8, 24));
-        JLabel label = buildLogoLabel(resourcePath);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.anchor = GridBagConstraints.CENTER;
-        wrapper.add(label, gbc);
-        return wrapper;
-    }
-
-    private JLabel buildLogoLabel(String resourcePath) {
         JLabel label = new JLabel(loadScaledIcon(resourcePath, LOGO_HEIGHT));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setVerticalAlignment(SwingConstants.CENTER);
-        return label;
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.weightx = 1.0; gbc.weighty = 1.0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        wrapper.add(label, gbc);
+        return wrapper;
     }
 
     private JPanel buildAvatarWrapper() {
@@ -301,14 +334,25 @@ public class LoginFrame extends JFrame {
         wrapper.setBorder(new EmptyBorder(8, 16, 8, 16));
         avatarLabel = new JLabel();
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
+        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.weightx = 1.0; gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.CENTER;
         wrapper.add(avatarLabel, gbc);
         return wrapper;
     }
+
+
+    private JPanel wrapCentered(JPanel formPanel) {
+        JPanel wrapper = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.weightx = 1.0; gbc.weighty = 1.0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        wrapper.add(formPanel, gbc);
+        return wrapper;
+    }
+
+    // ── Lógica ────────────────────────────────────────────────────────────────
 
     private void updateAvatarForRole(String rol) {
         String resourcePath = "/Images/Generic_Avatar.jpg";
@@ -321,12 +365,6 @@ public class LoginFrame extends JFrame {
         }
         if (avatarLabel != null) {
             avatarLabel.setIcon(loadScaledIcon(resourcePath, AVATAR_HEIGHT));
-        }
-    }
-
-    private void setLogoUdVisible(boolean visible) {
-        if (logoUdWrapper != null) {
-            logoUdWrapper.setVisible(visible);
         }
     }
 
@@ -345,7 +383,6 @@ public class LoginFrame extends JFrame {
             ValidationUI.showFieldError(this, txtLoginPassword, "La contrasena es obligatoria.");
             return;
         }
-
         try {
             Usuario usuario = sistema.login(correo, password);
             MainFrame mainFrame = new MainFrame(sistema, usuario.getRol());
@@ -372,10 +409,10 @@ public class LoginFrame extends JFrame {
             ValidationUI.showFieldError(this, txtRegPassword, "La contrasena es obligatoria.");
             return;
         }
-
         try {
             String telefono = txtRegTelefono.getText().trim();
-            Usuario usuario = sistema.registrarUsuario(nombre, correo, telefono, password, (String) cmbRol.getSelectedItem());
+            Usuario usuario = sistema.registrarUsuario(nombre, correo, telefono, password,
+                    (String) cmbRol.getSelectedItem());
             MainFrame mainFrame = new MainFrame(sistema, usuario.getRol());
             mainFrame.setVisible(true);
             dispose();
@@ -384,44 +421,26 @@ public class LoginFrame extends JFrame {
         }
     }
 
-
-    private ImageIcon loadScaledIcon(String resourcePath, int targetHeight) {
-        java.net.URL resource = getClass().getResource(resourcePath);
-        if (resource == null) {
-            return new ImageIcon();
-        }
-        ImageIcon icon = new ImageIcon(resource);
-        int width = icon.getIconWidth();
-        int height = icon.getIconHeight();
-        if (width <= 0 || height <= 0) {
-            return icon;
-        }
-        int targetWidth = (int) Math.round((double) width * targetHeight / height);
-        Image scaled = icon.getImage().getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
-        return new ImageIcon(scaled);
-    }
-
-    private JPanel wrapCentered(JPanel formPanel) {
-        JPanel wrapper = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.anchor = GridBagConstraints.CENTER;
-        wrapper.add(formPanel, gbc);
-        return wrapper;
-    }
-
     private void salir() {
-        int opcion = JOptionPane.showConfirmDialog(this, "Desea salir de la aplicacion?", "Confirmar salida",
-                JOptionPane.YES_NO_OPTION);
+        int opcion = JOptionPane.showConfirmDialog(this, "Desea salir de la aplicacion?",
+                "Confirmar salida", JOptionPane.YES_NO_OPTION);
         if (opcion == JOptionPane.YES_OPTION) {
             dispose();
             System.exit(0);
         }
     }
 
+    private ImageIcon loadScaledIcon(String resourcePath, int targetHeight) {
+        java.net.URL resource = getClass().getResource(resourcePath);
+        if (resource == null) return new ImageIcon();
+        ImageIcon icon = new ImageIcon(resource);
+        int width  = icon.getIconWidth();
+        int height = icon.getIconHeight();
+        if (width <= 0 || height <= 0) return icon;
+        int targetWidth = (int) Math.round((double) width * targetHeight / height);
+        Image scaled = icon.getImage().getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
+        return new ImageIcon(scaled);
+    }
 
     private void configureField(JTextField field) {
         field.setPreferredSize(FIELD_SIZE);

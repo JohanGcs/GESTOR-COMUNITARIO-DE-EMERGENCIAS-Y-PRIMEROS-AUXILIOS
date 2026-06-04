@@ -70,6 +70,12 @@ public class InventarioPanel extends JPanel {
         txtStockMinimo = new JTextField();
         txtCantidadMovimiento = new JTextField();
 
+        ValidationUI.configureField(txtId);
+        ValidationUI.configureField(txtNombre);
+        ValidationUI.configureField(txtStock);
+        ValidationUI.configureField(txtStockMinimo);
+        ValidationUI.configureField(txtCantidadMovimiento);
+
         ValidationUI.attachAutoClear(txtId);
         ValidationUI.attachAutoClear(txtNombre);
         ValidationUI.attachAutoClear(txtStock);
