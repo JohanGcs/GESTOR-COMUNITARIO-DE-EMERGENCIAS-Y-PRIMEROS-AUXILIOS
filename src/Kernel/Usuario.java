@@ -63,4 +63,16 @@ public abstract class Usuario {
         this.correo = correo;
         this.telefono = telefono;
     }
+
+    /**
+     * Devuelve una descripcion del rol y responsabilidades del usuario.
+     * Cada subclase sobreescribe este metodo para dar su propia descripcion.
+     */
+    public abstract String getDescripcionRol();
+
+    @Override
+    public String toString() {
+        // Representacion basica del usuario; las subclases pueden enriquecer esto.
+        return "[" + rol + "] " + nombre + " (" + correo + ")";
+    }
 }

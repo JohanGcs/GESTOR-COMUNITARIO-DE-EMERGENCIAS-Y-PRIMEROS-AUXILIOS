@@ -35,4 +35,21 @@ public class Residente extends Usuario {
     public int getCantidadIncidentes() {
         return cantidadIncidentes;
     }
+
+    /**
+     * Sobreescribe getDescripcionRol de Usuario.
+     * El residente reporta incidentes y consulta guias de primeros auxilios.
+     */
+    @Override
+    public String getDescripcionRol() {
+        return "Residente: puede reportar incidentes y consultar guias de primeros auxilios.";
+    }
+
+    /**
+     * Sobreescribe toString de Usuario para incluir la cantidad de incidentes reportados.
+     */
+    @Override
+    public String toString() {
+        return "[RESIDENTE] " + getNombre() + " (" + getCorreo() + ") - Incidentes reportados: " + cantidadIncidentes;
+    }
 }
